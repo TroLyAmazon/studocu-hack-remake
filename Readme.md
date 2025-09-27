@@ -3,7 +3,7 @@
 </p>
 
 #
-
+27/09/2025 Bận quá tạm gác lại dự án phi lợi nhuận này AE tải chorme cũ vẫn xài bình thường nhé! 
 ## Downloads
 
 **Stuhack V1.1.1** [Click Here](https://github.com/TroLyAmazon/studoc/raw/refs/heads/main/studoc-V1.1.1.rar)
