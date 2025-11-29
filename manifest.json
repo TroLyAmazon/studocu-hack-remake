@@ -2,7 +2,7 @@
   "manifest_version": 3,
 
   "name": "StuHack",
-  "version": "1.1.1",
+  "version": "2.0.1",
   "description": "Banner remover, filter pass & document downloader",
   "icons": {
     "16": "img/icon16.png",
@@ -16,5 +16,8 @@
       "css": ["style.css"],
       "matches": ["https://www.studocu.com/*", "https://www.studeersnel.nl/*", "https://www.studeersnel.vn/*", "https://www.studocu.vn/*", "https://www.scribd.com/*"]
     }
+  ],
+  "host_permissions": [
+    "https://website-assets.studocu.com/*"
   ]
 }

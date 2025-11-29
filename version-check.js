@@ -2,16 +2,23 @@ window.addEventListener('load', function(){
     try {
         version = chrome.runtime.getManifest().version;
 
-        const up_buttons = document.getElementsByClassName("fa-cloud-arrow-up");
+        const down_buttons = document.getElementsByClassName("fa-cloud-arrow-down");
     
-        button_cv = document.createElement("button");
-        button_cv.classList.add("github-button");
-        button_cv.classList.add("tooltip-bottom");
+        const button_gh = document.createElement("button");
+        button_gh.classList.add("github-button");
+        button_gh.classList.add("tooltip-bottom");
+        button_gh.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 60" aria-labelledby="title" aria-describedby="desc" role="img" class="svg-inline--fa" xmlns:xlink="http://www.w3.org/1999/xlink"><path data-name="layer" d="M32 0a32.021 32.021 0 0 0-10.1 62.4c1.6.3 2.2-.7 2.2-1.5v-6c-8.9 1.9-10.8-3.8-10.8-3.8-1.5-3.7-3.6-4.7-3.6-4.7-2.9-2 .2-1.9.2-1.9 3.2.2 4.9 3.3 4.9 3.3 2.9 4.9 7.5 3.5 9.3 2.7a6.93 6.93 0 0 1 2-4.3c-7.1-.8-14.6-3.6-14.6-15.8a12.27 12.27 0 0 1 3.3-8.6 11.965 11.965 0 0 1 .3-8.5s2.7-.9 8.8 3.3a30.873 30.873 0 0 1 8-1.1 30.292 30.292 0 0 1 8 1.1c6.1-4.1 8.8-3.3 8.8-3.3a11.965 11.965 0 0 1 .3 8.5 12.1 12.1 0 0 1 3.3 8.6c0 12.3-7.5 15-14.6 15.8a7.746 7.746 0 0 1 2.2 5.9v8.8c0 .9.6 1.8 2.2 1.5A32.021 32.021 0 0 0 32 0z" fill="#fff"></path></svg><span>v.'+version+'</span><span class="tooltiptext-bottom">Check for newer releases</span>';
+        button_gh.onclick = function() { location.href="https://github.com/TroLyAmazon/studocu-hack-remake" };
+
+        const button_fb = document.createElement("button");
+        button_fb.classList.add("github-button");
+        button_fb.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-labelledby="title" aria-describedby="desc" role="img" class="svg-inline--fa" style="width: 1em; height: 1em;"><path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z" fill="#fff"></path></svg>';
+        button_fb.onclick = function() { location.href="https://www.facebook.com/SauriengNonicenotwo" };
         
-        button_cv.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 60" aria-labelledby="title" aria-describedby="desc" role="img" class="svg-inline--fa" xmlns:xlink="http://www.w3.org/1999/xlink"><path data-name="layer" d="M32 0a32.021 32.021 0 0 0-10.1 62.4c1.6.3 2.2-.7 2.2-1.5v-6c-8.9 1.9-10.8-3.8-10.8-3.8-1.5-3.7-3.6-4.7-3.6-4.7-2.9-2 .2-1.9.2-1.9 3.2.2 4.9 3.3 4.9 3.3 2.9 4.9 7.5 3.5 9.3 2.7a6.93 6.93 0 0 1 2-4.3c-7.1-.8-14.6-3.6-14.6-15.8a12.27 12.27 0 0 1 3.3-8.6 11.965 11.965 0 0 1 .3-8.5s2.7-.9 8.8 3.3a30.873 30.873 0 0 1 8-1.1 30.292 30.292 0 0 1 8 1.1c6.1-4.1 8.8-3.3 8.8-3.3a11.965 11.965 0 0 1 .3 8.5 12.1 12.1 0 0 1 3.3 8.6c0 12.3-7.5 15-14.6 15.8a7.746 7.746 0 0 1 2.2 5.9v8.8c0 .9.6 1.8 2.2 1.5A32.021 32.021 0 0 0 32 0z" fill="#fff"></path></svg><span>v.'+version+'</span><span class="tooltiptext-bottom">Check for newer releases</span>';
-        button_cv.onclick = function() {location.href="https://www.facebook.com/SauriengNonicenotwo" }
-    
-        up_buttons[0].parentNode.parentNode.parentNode.insertBefore(button_cv, up_buttons[0].parentNode.parentNode.parentElement.children[2]);
+        const referenceNode = down_buttons[0].parentNode.parentNode.parentElement.children[2];
+        const parentContainer = down_buttons[0].parentNode.parentNode.parentNode;
+        parentContainer.insertBefore(button_gh, referenceNode);
+        parentContainer.insertBefore(button_fb, referenceNode);
     
         const logos = document.querySelectorAll('[aria-label="Studocu Logo"]');
     

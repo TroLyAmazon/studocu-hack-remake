@@ -17,6 +17,25 @@ window.addEventListener('load', function(){
 		});
 	}
 
+	// Remove new preview banner based on the provided HTML
+	const previewBanners = document.querySelectorAll('[class*="PremiumBannerBlobWrapper_preview-banner"]');
+	if (previewBanners) {
+		previewBanners.forEach(banner => {
+			banner.parentNode.removeChild(banner);
+		});
+	}
+
+	// Remove new floating components (top banner, but keep bottom toolbar)
+	const floatingComponents = document.querySelectorAll('[class*="FloatingComponentsWrapper_floating-components-wrapper"]');
+	if (floatingComponents) {
+		floatingComponents.forEach(component => {
+			// Only remove the component if it's a banner (contains 'TopFloatingComponent') and not the toolbar
+			if (component.querySelector('[class*="TopFloatingComponent_top-floating-component"]')) {
+				component.parentNode.removeChild(component);
+			}
+		});
+	}
+
 	/* Mobile */
 	if (window.innerWidth <= 990){
 		var container = document.getElementById('page-container');

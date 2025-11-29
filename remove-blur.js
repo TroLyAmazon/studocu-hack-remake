@@ -8,16 +8,31 @@ const focusImages = () => {
 }
 
 window.addEventListener('load', function(){
-    var pages = document.getElementsByClassName('page-content');
-    for(i=0; i<pages.length; i++){
-        pagecontent=pages[i].parentNode.childNodes;
-        for(j=0; j<pagecontent.length; j++){
-            if(pagecontent[j].className != "page-content"){
-                pagecontent[j].parentNode.removeChild(pagecontent[j]);
+    var pages = Array.from(document.getElementsByClassName('page-content'));
+    pages.forEach(page => {
+        if (page && page.parentNode) {
+            const nodesToRemove = [];
+            // Thu thập các node cần xóa
+            for (const child of page.parentNode.childNodes) {
+                if (child.className !== "page-content") {
+                    nodesToRemove.push(child);
+                }
             }
+            // Xóa các node đã thu thập
+            nodesToRemove.forEach(node => node.parentNode.removeChild(node));
+            page.classList.add("nofilter");
         }
-        pages[i].classList.add("nofilter");
+    });
+    const viewerWrapper = document.getElementById('viewer-wrapper');
+    if (viewerWrapper) {
+        viewerWrapper.addEventListener('scroll', focusImages);
     }
-    document.getElementById('viewer-wrapper').addEventListener('scroll', () => {focusImages()});
-    document.getElementById('document-wrapper').addEventListener('scroll', (e) => { focusImages()});
+
+    const documentWrapper = document.getElementById('document-wrapper');
+    if (documentWrapper) {
+        documentWrapper.addEventListener('scroll', focusImages);
+    }
+
+    // Run once after load to process any already-visible images
+    focusImages();
 });
