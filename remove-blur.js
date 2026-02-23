@@ -1,38 +1,57 @@
+// Chỉ chạy trên trang xem tài liệu, tránh làm vỡ trang chủ / trang khác (fix "Well, this is awkward")
+function isDocumentViewerPage() {
+    if (typeof window === 'undefined' || !window.location || !window.location.pathname) return false;
+    const path = window.location.pathname.toLowerCase();
+    if (path.indexOf('/document/') !== -1 || path.indexOf('/doc/') !== -1) return true;
+    if (document.getElementById('document-wrapper') || document.getElementById('viewer-wrapper')) return true;
+    return false;
+}
+
+function getViewerWrapper() {
+    return document.getElementById('viewer-wrapper')
+        || document.querySelector('[class*="viewer-wrapper"]')
+        || document.querySelector('[class*="ViewerWrapper"]');
+}
+function getDocumentWrapper() {
+    return document.getElementById('document-wrapper')
+        || document.querySelector('[class*="document-wrapper"]');
+}
+function getPageContentElements() {
+    const byClass = document.getElementsByClassName('page-content');
+    if (byClass.length > 0) return Array.from(byClass);
+    var root = document.getElementById('viewer-wrapper') || document.getElementById('document-wrapper');
+    if (!root) return [];
+    return Array.from(root.querySelectorAll('[class*="page-content"], [class*="PageContent"]'));
+}
+
 const focusImages = () => {
     var bluredContainers = Array.from(document.getElementsByClassName('blurred-container'));
     bluredContainers.forEach( (bluredContainer) => {
+        if (!bluredContainer.firstChild || !bluredContainer.firstChild.src) return;
         bluredContainer.firstChild.src = bluredContainer.firstChild.src.replace('/blurred/', '/');
         bluredContainer.firstChild.classList.add('bi', 'x0', 'y0', 'w1', 'h1');
         bluredContainer.classList.remove('blurred-container');
     });
-}
+    // Một số phiên bản dùng class/selector khác cho ảnh blur
+    document.querySelectorAll('[class*="blurred"] img[src*="blurred"]').forEach(img => {
+        img.src = img.src.replace('/blurred/', '/');
+    });
+};
 
 window.addEventListener('load', function(){
-    var pages = Array.from(document.getElementsByClassName('page-content'));
-    pages.forEach(page => {
-        if (page && page.parentNode) {
-            const nodesToRemove = [];
-            // Thu thập các node cần xóa
-            for (const child of page.parentNode.childNodes) {
-                if (child.className !== "page-content") {
-                    nodesToRemove.push(child);
-                }
-            }
-            // Xóa các node đã thu thập
-            nodesToRemove.forEach(node => node.parentNode.removeChild(node));
-            page.classList.add("nofilter");
-        }
+    if (!isDocumentViewerPage()) return;
+    var pages = getPageContentElements();
+    /* Không xóa sibling của .page-content — dễ xóa nhầm nội dung tài liệu khi Studocu đổi DOM. Chỉ thêm nofilter + unblur ảnh. */
+    pages.forEach(function(page) {
+        if (page && page.classList) page.classList.add("nofilter");
     });
-    const viewerWrapper = document.getElementById('viewer-wrapper');
+    const viewerWrapper = getViewerWrapper();
     if (viewerWrapper) {
         viewerWrapper.addEventListener('scroll', focusImages);
     }
-
-    const documentWrapper = document.getElementById('document-wrapper');
+    const documentWrapper = getDocumentWrapper();
     if (documentWrapper) {
         documentWrapper.addEventListener('scroll', focusImages);
     }
-
-    // Run once after load to process any already-visible images
     focusImages();
 });

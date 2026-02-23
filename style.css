@@ -26,6 +26,30 @@
     background-color: #259f02;
 }
 
+/* Nút tải nổi khi giao diện Studocu đổi (02/2025) */
+.stuhack-floating-download {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 99999;
+    box-shadow: 0 2px 12px rgba(0,0,0,.25);
+}
+
+/* Thanh version GitHub + Facebook — luôn hiện góc phải, dưới nút Tải xuống */
+#stuhack-version-bar {
+    position: fixed;
+    top: 140px;
+    right: 20px;
+    z-index: 99999;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    box-shadow: 0 2px 12px rgba(0,0,0,.2);
+}
+#stuhack-version-bar .github-button {
+    margin-right: 0;
+}
+
 .download-button-2{
     height: 30px; 
     margin: 0 5px;
